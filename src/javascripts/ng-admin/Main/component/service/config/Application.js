@@ -121,7 +121,7 @@ define(function (require) {
         }
 
         // Add baseUrl for relative URL
-        if (!/^(?:[a-z]+:)?\/\//.test(url)) {
+        if (!/^(?:[a-z]+:)?\/\//.test(url) && /^(?:[a-z]+:)?\/\//.test(baseApiUrl) ) {
             url = baseApiUrl + url;
         }
 

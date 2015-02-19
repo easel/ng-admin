@@ -17,9 +17,9 @@ define(function (require) {
             }]
         });
 
-        $stateProvider.state('dashboard', {
+        $stateProvider.state('admin.dashboard', {
             parent: 'main',
-            url: '/dashboard?sortField&sortDir',
+            url: '/admin/dashboard?sortField&sortDir',
             params: {
                 sortField: null,
                 sortDir: null
@@ -28,8 +28,6 @@ define(function (require) {
             controllerAs: 'dashboardController',
             template: dashboardTemplate
         });
-
-        $urlRouterProvider.otherwise('/dashboard');
     }
 
     routing.$inject = ['$stateProvider', '$urlRouterProvider'];
