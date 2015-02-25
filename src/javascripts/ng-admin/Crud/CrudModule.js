@@ -9,7 +9,9 @@ define(function (require) {
     require('angular-ui-router');
     require('angular-sanitize');
     require('angular-bootstrap-tpls');
+    require('humane');
     require('ng-file-upload');
+    require('nprogress');
     require('textangular');
     require('ngInflection');
     require('angular-ui-codemirror');
