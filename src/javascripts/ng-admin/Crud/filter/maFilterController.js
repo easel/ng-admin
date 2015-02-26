@@ -8,19 +8,17 @@ define(function () {
      * @param {$scope}        $scope
      * @param {$state}        $state
      * @param {$stateParams}  $stateParams
-     * @param {$filter}       $filter
      * @param {Configuration} Configuration
      *
      * @constructor
      */
-    function maFilterViewController($scope, $state, $stateParams, $filter) {
+    function maFilterViewController($scope, $state, $stateParams) {
         this.$scope = $scope;
         this.$state = $state;
         this.$stateParams = $stateParams;
-        this.$filter = $filter;
-        this.values = this.$stateParams.search || {};
+        this.$scope.values = this.$stateParams.search || {};
         this.$scope.filters = this.$scope.filters();
-        this.isFilterEmpty = isEmpty(this.values);
+        this.isFilterEmpty = isEmpty(this.$scope.values);
     }
 
     function isEmpty(values) {
@@ -41,11 +39,11 @@ define(function () {
             field = filters[i];
             fieldName = field.name();
 
-            if (this.values[fieldName]) {
-                values[fieldName] = this.values[fieldName];
+            if (this.$scope.values[fieldName]) {
+                values[fieldName] = this.$scope.values[fieldName];
 
                 if (field.type() === 'date') {
-                    values[fieldName] = this.$filter('date')(values[fieldName], field.format());
+                    values[fieldName] = field.parse()(values[fieldName]);
                 }
             }
         }
@@ -62,14 +60,14 @@ define(function () {
     maFilterViewController.prototype.clearFilters = function () {
         var i;
 
-        for (i in this.values) {
-            this.values[i] = null;
+        for (i in this.$scope.values) {
+            this.$scope.values[i] = null;
         }
 
         this.filter();
     };
 
-    maFilterViewController.$inject = ['$scope', '$state', '$stateParams', '$filter'];
+    maFilterViewController.$inject = ['$scope', '$state', '$stateParams'];
 
     return maFilterViewController;
 });

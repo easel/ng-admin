@@ -16,6 +16,7 @@ Check out the [online demo](http://ng-admin.marmelab.com/) ([source](https://git
 * [Customizing the API Mapping](doc/API-mapping.md)
 * [Theming](doc/Theming.md)
 * [Adding Custom Pages](doc/Custom-pages.md)
+* [Adding Custom Types](doc/Custom-types.md)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -332,6 +333,9 @@ Define the position of the field in the view.
 * `format(string ['yyyy-MM-dd' by default])`
 Define the format for `date` type.
 
+* `parse(function [no change by default])`
+Filter applied to modify date object returned by date picker if needed.
+
 * `isDetailLink(boolean)`
 Tell if the value is a link in the list view. Default to true for the identifier and references field, false otherwise. The link points to the edition view, except for read-only entities, where it points to the show view.
 
@@ -460,6 +464,18 @@ Define a function that returns parameters for filtering API calls. You can use i
                 })
         ]);
 
+* `sortField(String)`
+Set the default field for list sorting. Defaults to 'id'
+
+* `sortDir(String)`
+Set the default direction for list sorting. Defaults to 'DESC'
+
+* `filters({ field1: value, field2: value, ...])`
+Add filters to the referenced results list.
+
+* `perPage(integer)`
+Define the maximum number of elements fetched and displayed in the list.
+
 ### `referenced_list` Field
 
 The `referenced_list` type also defines `label`, `order`, `map`, `list` & `validation` options like the `Field` type.
@@ -484,8 +500,17 @@ Define an array of fields that will be displayed in the list of the form.
                 ])
         ]);
 
+* `sortField(String)`
+Set the default field for list sorting. Defaults to 'id'
+
+* `sortDir(String)`
+Set the default direction for list sorting. Defaults to 'DESC'
+
+* `filters({ field1: value, field2: value, ...])`
+Add filters to the referenced results list.
+
 * `perPage(integer)`
-Define the maximum number of elements fetched and displayed in the list
+Define the maximum number of elements fetched and displayed in the list.
 
 ### `reference_many` Field
 
@@ -500,7 +525,7 @@ Define the field name used to link the referenced entity.
         myView.fields([
             nga.field('tags', 'reference_many')
                .label('Tags')
-               .isEditLink(false)
+               .isDetailLink(false)
                .targetEntity(tag) // Targeted entity
                .targetField(nga.field('name')) // Label Field to display in the list
         ])
